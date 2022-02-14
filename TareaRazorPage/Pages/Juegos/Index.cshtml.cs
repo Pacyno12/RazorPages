@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -22,9 +23,33 @@ namespace TareaRazorPage.Pages.Juegos
 
         public IList<Juego> Juego { get;set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string SearchString { get; set; }
+        public SelectList Genres { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string JuegoGenero { get; set; }
+
         public async Task OnGetAsync()
         {
-            Juego = await _context.Juego.ToListAsync();
+            // Use LINQ to get list of genres.
+            IQueryable<string> genreQuery = from m in _context.Juego
+                                            orderby m.Genre
+                                            select m.Genre;
+
+            var juegos = from m in _context.Juego
+                         select m;
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                juegos = juegos.Where(s => s.Title.Contains(SearchString));
+            }
+
+            if (!string.IsNullOrEmpty(JuegoGenero))
+            {
+                juegos = juegos.Where(x => x.Genre == JuegoGenero);
+            }
+            Genres = new SelectList(await genreQuery.Distinct().ToListAsync());
+            Juego = await juegos.ToListAsync();
         }
     }
 }
