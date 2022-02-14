@@ -1,0 +1,49 @@
+﻿@page
+@model TareaRazorPage.Pages.Juegos.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Juego</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Juego.Title" class="control-label"></label>
+                <input asp-for="Juego.Title" class="form-control" />
+                <span asp-validation-for="Juego.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Juego.ReleaseDate" class="control-label"></label>
+                <input asp-for="Juego.ReleaseDate" class="form-control" />
+                <span asp-validation-for="Juego.ReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Juego.Genre" class="control-label"></label>
+                <input asp-for="Juego.Genre" class="form-control" />
+                <span asp-validation-for="Juego.Genre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Juego.Price" class="control-label"></label>
+                <input asp-for="Juego.Price" class="form-control" />
+                <span asp-validation-for="Juego.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
