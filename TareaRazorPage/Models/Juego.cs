@@ -17,8 +17,5 @@ namespace TareaRazorPage.Models
         [Display(Name = "Precio del juego")]
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
-
-
-
     }
 }
